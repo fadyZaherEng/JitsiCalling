@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:jits_calling_app/core/utils/notification_services.dart';
+import 'package:jitsi/core/utils/notification_services.dart';
 
 import 'package:rxdart/rxdart.dart';
 

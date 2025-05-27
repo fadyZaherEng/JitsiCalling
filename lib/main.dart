@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:jits_calling_app/core/utils/jitsi_services.dart';
+import 'package:jitsi/core/utils/jitsi_services.dart';
 import 'firebase_options.dart';
 
 void main() async {
