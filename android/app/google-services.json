@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "948576209897",
+    "project_id": "zegoapp-3db9a",
+    "storage_bucket": "zegoapp-3db9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948576209897:android:aed2d4544e79490e305978",
+        "android_client_info": {
+          "package_name": "com.example.jits_calling_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzEtaQ781zV5XtHWx4OCpfJaJysDP6GJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948576209897:android:25064fdc2f903650305978",
+        "android_client_info": {
+          "package_name": "com.example.zego"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzEtaQ781zV5XtHWx4OCpfJaJysDP6GJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
