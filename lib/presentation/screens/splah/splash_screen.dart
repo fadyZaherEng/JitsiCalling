@@ -61,14 +61,20 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/logo.png',
-                width: 100,
-                height: 100,
+              ClipRRect(
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(150),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                ),
               ),
               const SizedBox(height: 20),
               const Text(
-                "Jitsi App",
+                "Jitsi",
                 style: TextStyle(
                   fontSize: 28,
                   color: Colors.white,
