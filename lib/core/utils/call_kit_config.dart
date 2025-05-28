@@ -1,7 +1,8 @@
 import 'package:flutter_callkit_incoming/entities/entities.dart';
+import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 
 class CallKitConfig {
-  final String nameController;
+  final String nameCaller;
   final String appName;
   final String avatar;
   final String handle;
@@ -14,7 +15,7 @@ class CallKitConfig {
   final Map<String, String> headers;
 
   CallKitConfig({
-    required this.nameController,
+    required this.nameCaller,
     required this.appName,
     required this.avatar,
     required this.handle,
@@ -31,7 +32,7 @@ class CallKitConfig {
     required String roomId,
   }) async {
     CallKitParams callKitParams = CallKitParams(
-      nameCaller: nameController,
+      nameCaller: nameCaller,
       appName: appName,
       avatar: avatar,
       handle: handle,
@@ -68,5 +69,7 @@ class CallKitConfig {
         ringtonePath: "system_ringtone_default",
       ),
     );
+
+    await FlutterCallkitIncoming.showCallkitIncoming(callKitParams);
   }
 }

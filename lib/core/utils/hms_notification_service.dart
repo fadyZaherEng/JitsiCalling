@@ -2,7 +2,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_callkit_incoming/entities/notification_params.dart';
 import 'package:huawei_push/huawei_push.dart';
+import 'package:jitsi/core/utils/call_kit_config.dart';
 import 'package:rxdart/rxdart.dart';
 import 'notification_services.dart';
 
@@ -53,10 +55,11 @@ class HMSNotificationServices extends NotificationServices {
         "sectionid": remoteMessage["extras"]['sectionid'],
       };
       onNotificationClick?.add(json.encode(remoteNotification));
+      _gitsiCallHandler(remoteMessage);
     }
   }
 
-  static void backgroundMessageCallback(RemoteMessage remoteMessage) async {
+  void backgroundMessageCallback(RemoteMessage remoteMessage) async {
     print("backgroundMessageCallback: $remoteMessage");
     String? data = remoteMessage.data;
 
@@ -68,6 +71,7 @@ class HMSNotificationServices extends NotificationServices {
     };
     if (data != null) {
       onNotificationClick?.add(json.encode(remoteNotification));
+      _gitsiCallHandler(remoteMessage);
     }
   }
 
@@ -82,6 +86,7 @@ class HMSNotificationServices extends NotificationServices {
     };
     if (data != null) {
       onNotificationClick?.add(json.encode(remoteNotification));
+      _gitsiCallHandler(remoteMessage);
     }
   }
 
@@ -93,5 +98,36 @@ class HMSNotificationServices extends NotificationServices {
     // await SaveFirebaseNotificationTokenUseCase(injector())(
     //   firebaseNotificationToken: _token,
     // );
+  }
+
+  void _gitsiCallHandler(RemoteMessage event) {
+    if (event.dataOfMap != null && event.dataOfMap!.containsKey("room_id")) {
+      CallKitConfig callKitConfig = CallKitConfig(
+        nameCaller: event.dataOfMap!["sender_name"]!,
+        appName: "Jitsi",
+        avatar: event.dataOfMap!["sender_image"]!,
+        handle: event.dataOfMap!["sender_mobile"]!,
+        textAccept: "Accept",
+        textDecline: "Decline",
+        missedCallNotificationParams: const NotificationParams(
+          isShowCallback: true,
+          showNotification: true,
+          subtitle: "Missed Call",
+          callbackText: "Call Back",
+        ),
+        duration: 30000,
+        extra: {
+          'user_id': event.dataOfMap!["sender_id"]!,
+        },
+        headers: {
+          'api_key': "YOUR_API_KEY",
+          "platform": "flutter",
+        },
+        type: 0,
+      );
+      callKitConfig.showIncomingCall(roomId: event.dataOfMap!["room_id"]!);
+    } else {
+      //TODO Handle Notification
+    }
   }
 }

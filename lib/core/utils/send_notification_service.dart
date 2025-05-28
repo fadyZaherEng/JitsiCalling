@@ -9,9 +9,14 @@ import 'package:googleapis_auth/auth_io.dart' as auth;
 class SendNotificationService {
   static Future<void> sendMassageByToken({
     String projectId = "948576209897",
-    required String requestId,
-    required String message,
-    required BuildContext context,
+    required String senderName,
+    required String receiverName,
+    required String senderImage,
+    required String receiverImage,
+    required String senderEmail,
+    required String receiverEmail,
+    required String roomId,
+    required String senderMobile,
   }) async {
     final String serverAccessToken = await getServerAccessToken();
     print('Access Token: $serverAccessToken');
@@ -23,12 +28,18 @@ class SendNotificationService {
       "message": {
         "token": "$currentFCMToken",
         "notification": {
-          "title": "you have a new message on request $requestId",
-          "body": message,
+          "title": "you have a new message on request ",
+          "body": "message",
         },
         'data': {
-          "view": "support_comments",
-          "id": requestId,
+          "sender_name": senderName,
+          "receiver_name": receiverName,
+          "sender_image": senderImage,
+          "receiver_image": receiverImage,
+          "sender_email": senderEmail,
+          "receiver_email": receiverEmail,
+          "room_id": roomId,
+          "sender_mobile": senderMobile,
           'current_user_fcm_token': "$currentFCMToken",
         }
       }
