@@ -24,6 +24,7 @@ dependencies:
   huawei_push:
   cloud_firestore:
   firebase_auth:
+  shared_preferences:
 
 
 
@@ -33,7 +34,11 @@ dev_dependencies:
 
   flutter_lints: ^3.0.0
 
+
 flutter:
 
   uses-material-design: true
+  
+  assets:
+    - assets/images/
 

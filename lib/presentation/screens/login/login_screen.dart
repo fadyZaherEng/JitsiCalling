@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,32 +13,39 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
   bool _isLoading = false;
+  bool _rememberMe = false;
 
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-
     _fadeAnimation =
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
-
     _animationController.forward();
+    _loadRememberedData();
   }
 
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    _animationController.dispose();
-    super.dispose();
+  Future<void> _loadRememberedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedEmail = prefs.getString('email') ?? '';
+    final savedPassword = prefs.getString('password') ?? '';
+    final remember = prefs.getBool('rememberMe') ?? false;
+
+    if (remember) {
+      setState(() {
+        _email.text = savedEmail;
+        _password.text = savedPassword;
+        _rememberMe = true;
+      });
+    }
   }
 
   Future<void> _login() async {
@@ -47,6 +55,18 @@ class _LoginScreenState extends State<LoginScreen>
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
+
+      final prefs = await SharedPreferences.getInstance();
+      if (_rememberMe) {
+        await prefs.setString('email', _email.text.trim());
+        await prefs.setString('password', _password.text.trim());
+        await prefs.setBool('rememberMe', true);
+      } else {
+        await prefs.remove('email');
+        await prefs.remove('password');
+        await prefs.setBool('rememberMe', false);
+      }
+
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Logged in")));
       Navigator.pushReplacementNamed(context, '/home');
@@ -73,6 +93,14 @@ class _LoginScreenState extends State<LoginScreen>
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -111,29 +139,40 @@ class _LoginScreenState extends State<LoginScreen>
                   _buildTextField(label: "Email", controller: _email),
                   const SizedBox(height: 16),
                   _buildTextField(
-                    label: "Password",
-                    controller: _password,
-                    isPassword: true,
+                      label: "Password",
+                      controller: _password,
+                      isPassword: true),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _rememberMe,
+                        onChanged: (value) {
+                          setState(() => _rememberMe = value ?? false);
+                        },
+                      ),
+                      const Text("Remember Me", style: TextStyle(color: Colors.white)),
+                    ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   _isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
                       : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 80, vertical: 16),
-                          ),
-                          onPressed: _login,
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 80, vertical: 16),
+                    ),
+                    onPressed: _login,
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () =>

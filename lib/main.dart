@@ -8,6 +8,7 @@ import 'package:jitsi/core/utils/hms_notification_service.dart';
 import 'package:jitsi/presentation/screens/home/home_screen.dart';
 import 'package:jitsi/presentation/screens/login/login_screen.dart';
 import 'package:jitsi/presentation/screens/register/register_screen.dart';
+import 'package:jitsi/presentation/screens/splah/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
+      // ✅ شاشة البداية
       routes: {
         '/register': (context) => const RegisterScreen(),
         '/login': (context) => const LoginScreen(),
