@@ -11,8 +11,10 @@ class SendNotificationService {
     String projectId = "948576209897",
     required String senderName,
     required String receiverName,
-    required String senderImage,
-    required String receiverImage,
+    String senderImage =
+        "https://avatars.githubusercontent.com/u/57035818?s=400&u=02572f10fe61bca6fc20426548f3920d53f79693&v=4",
+    String receiverImage =
+        "https://avatars.githubusercontent.com/u/57035818?s=400&u=02572f10fe61bca6fc20426548f3920d53f79693&v=4",
     required String senderEmail,
     required String receiverEmail,
     required String roomId,
@@ -23,10 +25,11 @@ class SendNotificationService {
     String url =
         'https://fcm.googleapis.com/v1/projects/$projectId/messages:send';
 
-    final currentFCMToken = await FirebaseMessaging.instance.getToken();
+    // final currentFCMToken = await FirebaseMessaging.instance.getToken();
     final Map<String, dynamic> massage = {
       "message": {
-        "token": "$currentFCMToken",
+        "token":
+            "dLy4_mHYRG6Awf6h-UWuYN:APA91bHoyc6lPUiqoLxyag20zvLECMtf2E0otsR_zC3bvYQwm8mhDSpRZp2ZXlA1Ou3gt8Dij5GaNy8RmHB2UmUQknuIIxU_AyP2oSjFgK-p8150pbMbCEE",
         "notification": {
           "title": "you have a new message on request ",
           "body": "message",
@@ -40,7 +43,8 @@ class SendNotificationService {
           "receiver_email": receiverEmail,
           "room_id": roomId,
           "sender_mobile": senderMobile,
-          'current_user_fcm_token': "$currentFCMToken",
+          'current_user_fcm_token':
+              "dLy4_mHYRG6Awf6h-UWuYN:APA91bHoyc6lPUiqoLxyag20zvLECMtf2E0otsR_zC3bvYQwm8mhDSpRZp2ZXlA1Ou3gt8Dij5GaNy8RmHB2UmUQknuIIxU_AyP2oSjFgK-p8150pbMbCEE",
         }
       }
     };

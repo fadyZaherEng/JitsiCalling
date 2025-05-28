@@ -6,6 +6,7 @@ import 'package:huawei_hmsavailability/huawei_hmsavailability.dart';
 import 'package:jitsi/core/utils/firebase_notification_services.dart';
 import 'package:jitsi/core/utils/hms_notification_service.dart';
 import 'package:jitsi/core/utils/jitsi_services.dart';
+import 'package:jitsi/core/utils/send_notification_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -57,12 +58,23 @@ class _JitsiAppState extends State<JitsiApp> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               TextButton(
-                onPressed: jitsiServices.startMeeting,
+                onPressed: () async {
+                  jitsiServices.startMeeting().then((value) {
+                    SendNotificationService.sendMassageByToken(
+                      senderName: "Fady Zaher",
+                      receiverName: "Mina Zaher",
+                      senderEmail: "fedo.zaher@example.com",
+                      receiverEmail: "mina.zaher@example.com",
+                      roomId: "roomId",
+                      senderMobile: "01273826361",
+                    );
+                  });
+                },
                 child: const Text("Join"),
               ),
               TextButton(

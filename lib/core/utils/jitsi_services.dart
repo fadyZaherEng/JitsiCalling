@@ -150,7 +150,6 @@ class JitsiServices {
     try {
       await jitsiMeet.join(options!, eventListener!);
       debugPrint("startMeeting");
-      //MainService
     } catch (error) {
       debugPrint("Error: $error");
     }
