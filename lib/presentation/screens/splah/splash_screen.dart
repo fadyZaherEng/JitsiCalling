@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/logo.png', // ضع هنا مسار الشعار الخاص بك
+                'assets/images/logo.png',
                 width: 100,
                 height: 100,
               ),
