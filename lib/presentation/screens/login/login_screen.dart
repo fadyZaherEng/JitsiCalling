@@ -67,12 +67,18 @@ class _LoginScreenState extends State<LoginScreen>
         await prefs.setBool('rememberMe', false);
       }
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Logged in")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Logged in"),
+        ),
+      );
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Login failed: $e")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Login failed: $e"),
+        ),
+      );
     } finally {
       setState(() => _isLoading = false);
     }
@@ -139,9 +145,10 @@ class _LoginScreenState extends State<LoginScreen>
                   _buildTextField(label: "Email", controller: _email),
                   const SizedBox(height: 16),
                   _buildTextField(
-                      label: "Password",
-                      controller: _password,
-                      isPassword: true),
+                    label: "Password",
+                    controller: _password,
+                    isPassword: true,
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     children: [
@@ -151,28 +158,33 @@ class _LoginScreenState extends State<LoginScreen>
                           setState(() => _rememberMe = value ?? false);
                         },
                       ),
-                      const Text("Remember Me", style: TextStyle(color: Colors.white)),
+                      const Text(
+                        "Remember Me",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
                   _isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
                       : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blueAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 80, vertical: 16),
-                    ),
-                    onPressed: _login,
-                    child: const Text(
-                      "Login",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 80,
+                              vertical: 16,
+                            ),
+                          ),
+                          onPressed: _login,
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () =>
