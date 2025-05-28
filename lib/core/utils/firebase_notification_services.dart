@@ -83,7 +83,7 @@ class FirebaseNotificationService implements NotificationServices {
         ),
         duration: 30000,
         extra: {
-          'user_id': event.data["sender_id"],
+          'room_id': event.data["room_id"],
         },
         headers: {
           'api_key': "YOUR_API_KEY",

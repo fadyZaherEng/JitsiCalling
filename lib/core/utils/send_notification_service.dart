@@ -25,11 +25,12 @@ class SendNotificationService {
     String url =
         'https://fcm.googleapis.com/v1/projects/$projectId/messages:send';
 
-    // final currentFCMToken = await FirebaseMessaging.instance.getToken();
+    const currentFCMToken =
+        "cCdkdzK6Te6yuBVjVvU5qK:APA91bHDILFQoXLCwdpnQyrAWdeVslcXhE26xDNKi2_OAdhO-0TANmzoSfhjMc4PGKLl-iFv9xDPJHL5Krue7_TIfyEiQyhdT5ZZxBCrGTeKGY58EexsHhw";
+    // await FirebaseMessaging.instance.getToken();
     final Map<String, dynamic> massage = {
       "message": {
-        "token":
-            "dLy4_mHYRG6Awf6h-UWuYN:APA91bHoyc6lPUiqoLxyag20zvLECMtf2E0otsR_zC3bvYQwm8mhDSpRZp2ZXlA1Ou3gt8Dij5GaNy8RmHB2UmUQknuIIxU_AyP2oSjFgK-p8150pbMbCEE",
+        "token": currentFCMToken,
         "notification": {
           "title": "you have a new message on request ",
           "body": "message",
@@ -43,8 +44,7 @@ class SendNotificationService {
           "receiver_email": receiverEmail,
           "room_id": roomId,
           "sender_mobile": senderMobile,
-          'current_user_fcm_token':
-              "dLy4_mHYRG6Awf6h-UWuYN:APA91bHoyc6lPUiqoLxyag20zvLECMtf2E0otsR_zC3bvYQwm8mhDSpRZp2ZXlA1Ou3gt8Dij5GaNy8RmHB2UmUQknuIIxU_AyP2oSjFgK-p8150pbMbCEE",
+          'current_user_fcm_token': currentFCMToken,
         }
       }
     };
@@ -126,9 +126,9 @@ class SendNotificationService {
     const serviceAccountJson = {
       "type": "service_account",
       "project_id": "zegoapp-3db9a",
-      "private_key_id": "90a5073d06c5e14521b4f02a882fa5ad33e2d1ca",
+      "private_key_id": "077b22d03eefc8b055867117bf27e9ed8952a5ae",
       "private_key":
-          "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCzPKHZb1q6IQdF\n0tZfUj+K8mbqfJMYHy1Dqn5yIly125xj4YyX7umBpqdUBGcPoUnUyoGgxFcw5roF\n7HpozE7uCBD9AYcsHd3ENMTeAoplUlT/HZaq9uRp8ZVFsRQ5oL0s665Gtc5z/bFW\nA/8tiM2IEP6iZ8I4iVRrAyO4tEFP9s28xh3XlHYmkBcjjPYwstCMnzg/M8uZfcpQ\njbvB+r6MzXL8pA5z5wUKUVLqFjqaBuEx8HE0J2YWsI5ynHayTn6p8kbBB8s9TJdI\nXiwifSCx42eyQwk3sVdmk7ENmWU2NPyWgbaUDfNx+C0/c9aRZgtL9W26NfqBA5Hi\nO6l0dE5NAgMBAAECggEAU/Oj2WzjYYgD2IwTFe23zpSQaOd1nFhKAsYyWLJIm3Ok\nMlJcYHOqkqwk9uDjBvqkUtORWORt9H01h33Grhx4IdzMXD0he6P3kiWnSleFTET+\ng8nvnt9qiEb8BHsXPpDP2uD/LaaNb13V+LSBiunnXwKayiXwXjvQuxjq2+IuL03h\nUEiqyvbPh2w0W9Jtv5rTi6DnmWfSiOxxxYzExuOTUC9ixNHLpAb2tG4BoKCo1pPz\nQa6uEtBHGtTvS5OTZnR0wkGRLDt3PMzDydus3neS9hy65aWq55tDIUvDwmCmHObG\nHy4ReRYfc/NO2vFWUNnAXsbd0XNV4PjA5pfwkWAJjwKBgQDWmt8/DNTeuWgBaqmH\nEgBebHPr8SnLYRcvQEDMhos/mXZvXPj6qfQ39yzYYMWt49/hzTto49M7ImZ7L6Pl\nII1m8ilW/n/hKBxcVxtu9qta/oAUjyIDuYGATs1tONyUL/kvilEf4+yZ1YxZVr/y\nJn7JbxahZT83R9SwkyrKzIN8jwKBgQDVz0sAGpeKQ65l0y9v/Kl82dUYzfVaK5/h\nmMrHLewZDcM7DDeqEmyBNqWl1+jt01ShN1CLjk+OffLQ1fBKqjQNxnOlm+eFZ04s\nWd/WHkSSvDW16wCPBmb1pirofTaJ8t+3w9qM+rLy1xJ9frYxHcolSmolSOhXKcQc\nrBWPOuotYwKBgE21aM9Y4x//PQT+TYLGZvHKDbPK8NpfPtjySESHF5chB7zNiq6h\nqfg1/bwgVpRf5mrKORADJzLLgxZqKsvGHM3BNGz23PF358UcGaf1lBjv/Qr0xVlZ\n6+W9Iy/AnkbelDm9uSB2FO+jXx3ehsS1YcWo/yXUFq76yK5jq+QhaB9LAoGBALPx\nRfnMZ4Vh+MCRv/bL+gite/7oN3mwBVrkMKT5LR7YylpDqgVkhBUrXLX6xHqDxVH5\nL7yEBMizj0vbAeSU4kJFpsbWMz++9be13ABkcOndpIZ6RXoZtUVAmBQabXAkC8yo\n9KJ5y2k9QL6FiehEXgCMZFEEzyWsbPSEj5B/0N5pAoGBAKNgBG4xDtnws7IqSzeC\n3hQYTybWcLdQTvTlGRNuB9/4PaCfmraTE4eWJvaHDMzI2P+LRo8Yr4+80hsSdcvn\nWkcVhyO6YZR6d7Jc5npc5XUJZO/mKHJydfhcd6Ofw5xBdiuN3Ltdj9knJrzzyfiu\nCYgsFBAJoYFfm/LgWsEfvaIE\n-----END PRIVATE KEY-----\n",
+          "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDhZpzCZdvdQiPK\nFB44N3khL8mzNaFOUQPh0vTvsXMvmHpAIXjw+XF5ObRcdbXeE6a/P3r3HMrErHnV\n0GUcZpprdaN/UFhqg5IrT79O11oFwzMWHaqzQxZU4ONOr81o/eBMOmoJkLQFTu82\nMPKo3ikkmrho9WZNmO+vUeT7LfFxcXGbPJ5H7xBtzy3mx5ZsUnPfm3VG2r3huMMm\nVBLzlalxnbtcg3DUC0vbsKYv0JBO7OqLiYEBHBXDgAEmvrDbIfSpHkr8bS+1qdv3\nEERlnCI/ep/y8manpKX16kmvFCLTmLE+QWAgpBerFuuc17/jhEmlDnmByMkYKxE7\nL72JCszNAgMBAAECggEADucG5D9xyu4tiZXM7bCVPKF5N3ULRi9LD2owMYzM7c+p\n/YV5Bo2nd/lduGM79APemXRr/9ySd3Bj2cQee0M5YHN1rNw2DEzIpD5wipjoZcsj\nHIo3mASOfGwl+zTaYt+uLbwK+LjtfhBa9n1D/fA6TiZAnQfkjKrY5gGHHyhJd1OG\nB7JQGAcBhZ+NHSTBUTEF2NG5RaPgbS0+QTBiT6aXNFS/r73myS9ciCg9XHltINb5\nuQD0r7kqcGNYI7hJUBlzFpSoAFgPdWF0CBAy2Xa4fEBUPWhaI7qhN56SyeBnCbnF\nOYSKS3Y+GYfNzME8wDOEAxcjn8OZ7FdZjkBDz/CE7QKBgQD0GitNOc9KxqG/i+yi\n2ZmL0YP8W+pvLNUGMUn7QuZd2LdpBqoFOpAqlvnLogE2uJWkimHIubq5dIGjEHwg\n+iYbIUUdmH9zI3KuGcL9EZdhU3pqYFvowVQEbLeQHdQ0QmMWiXwgAycy+WrLXZ7E\nZd3dAUsy5fqs+fF6L+A6irXpkwKBgQDsYxfT9aiSgqkpx4OK8Wjoazq9E4TVliCv\nSKk6fLLoZ3OGea1Qed0aj8LgLv8rmy3xOU0yH6+xaYi0hPQZkzAB8MrJP0tkdGJ2\nJlAepBlvZB/ZEQvatjx8xcTeShq3M0f7SY0xdn3scnX84hul6jnhDa/a2YgtBM3F\nvfvKHZDsHwKBgBLU8gJDM3rRWCku4lKt9uqSf1w4ux1YmBaiNtLrllonHf88RGGi\n4vxmKV9MYEuYcfL/uguCSKWGF3o9C1Z/9fCh4HMoEK0RTwefdSuQ79zSU99hD7Yl\nNBYjTQYRRw3BEWPrt2fA1oVYOKT31AfS1Ar4zpReqbgukDKc/u+FRAOBAoGATOgo\ndnN0NsZ/1vHsYCYOpZ9NavqQuxSu6ZhQRpEPfAE8WsH3mzkqsFuZYWqo5j0Eg3jL\nHsWkWaomKeUfrbpvYhI/R55qHvKmnh307yMgi1cd7XdYTf4AS+/kDxY4/uWWQ7E4\nWKFecrECphXCPQapcgkL773aShtH/0/CPY3E+q0CgYEA1ZWl5MaTd77ZL8FICUjH\nWKFvkfhheWMr8UMdmUZKaIzIhs4+zDEpSp4lUcbmaJtSbjp7hC39CZVlwGuSc139\n9niQvFueUBZvogKbwgQJjOzQeTAZHVOfIMgEFlW8LDouJyPOrbsLriDvpjINIhVl\nDrvLrKmisVZSpO04Ftn6tao=\n-----END PRIVATE KEY-----\n",
       "client_email":
           "firebase-adminsdk-kl8iu@zegoapp-3db9a.iam.gserviceaccount.com",
       "client_id": "100908717387784242576",

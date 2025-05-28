@@ -71,7 +71,7 @@ class JitsiServices {
       serverURL: 'https://meet.ffmuc.net/',
       configOverrides: {
         "startWithAudioMuted": true,
-        "startWithVideoMuted": false,
+        "startWithVideoMuted": true,
         "disableDeepLinking": true,
         "disableThirdPartyRequests": true,
         "audioQuality": {"opusMaxAverageBitrate": 32000},

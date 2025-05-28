@@ -64,15 +64,15 @@ class _JitsiAppState extends State<JitsiApp> {
             children: <Widget>[
               TextButton(
                 onPressed: () async {
-                  jitsiServices.startMeeting().then((value) {
-                    SendNotificationService.sendMassageByToken(
-                      senderName: "Fady Zaher",
-                      receiverName: "Mina Zaher",
-                      senderEmail: "fedo.zaher@example.com",
-                      receiverEmail: "mina.zaher@example.com",
-                      roomId: "roomId",
-                      senderMobile: "01273826361",
-                    );
+                  SendNotificationService.sendMassageByToken(
+                    senderName: "Fady Zaher",
+                    receiverName: "Mina Zaher",
+                    senderEmail: "fedo.zaher@example.com",
+                    receiverEmail: "mina.zaher@example.com",
+                    roomId: "roomId",
+                    senderMobile: "01273826361",
+                  ).then((value) {
+                    jitsiServices.startMeeting();
                   });
                 },
                 child: const Text("Join"),
