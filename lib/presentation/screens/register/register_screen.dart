@@ -106,7 +106,10 @@ class _RegisterScreenState extends State<RegisterScreen>
           padding: const EdgeInsets.symmetric(horizontal: 24),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xff4facfe), Color(0xff00f2fe)],
+              colors: [
+                Color(0xff4facfe),
+                Color(0xff00f2fe),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
