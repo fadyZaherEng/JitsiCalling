@@ -22,6 +22,8 @@ dependencies:
   firebase_messaging:
   googleapis_auth:
   huawei_push:
+  cloud_firestore:
+  firebase_auth:
 
 
 

@@ -5,8 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:huawei_hmsavailability/huawei_hmsavailability.dart';
 import 'package:jitsi/core/utils/firebase_notification_services.dart';
 import 'package:jitsi/core/utils/hms_notification_service.dart';
-import 'package:jitsi/core/utils/jitsi_services.dart';
-import 'package:jitsi/core/utils/send_notification_service.dart';
+import 'package:jitsi/presentation/screens/home/home_screen.dart';
+import 'package:jitsi/presentation/screens/login/login_screen.dart';
+import 'package:jitsi/presentation/screens/register/register_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -27,117 +28,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const JitsiApp(),
-    );
-  }
-}
-
-class JitsiApp extends StatefulWidget {
-  const JitsiApp({super.key});
-
-  @override
-  State<JitsiApp> createState() => _JitsiAppState();
-}
-
-class _JitsiAppState extends State<JitsiApp> {
-  JitsiServices jitsiServices = JitsiServices(
-    email: "fedo.zaher@example.com",
-    avatarUrl: "https://example.com/avatar.jpg",
-    displayName: "Fady Zaher",
-    room: "roomId",
-  );
-  bool audioMuted = false;
-  bool videoMuted = false;
-  bool screenShareOn = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Jitsi Meetings'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TextButton(
-                onPressed: () async {
-                  SendNotificationService.sendMassageByToken(
-                    senderName: "Fady Zaher",
-                    receiverName: "Mina Zaher",
-                    senderEmail: "fedo.zaher@example.com",
-                    receiverEmail: "mina.zaher@example.com",
-                    roomId: "roomId",
-                    senderMobile: "01273826361",
-                  ).then((value) {
-                    jitsiServices.startMeeting();
-                  });
-                },
-                child: const Text("Join"),
-              ),
-              TextButton(
-                onPressed: jitsiServices.hangUp,
-                child: const Text("Hang Up"),
-              ),
-              Row(
-                children: [
-                  const Text("Set Audio Muted"),
-                  Checkbox(
-                    value: audioMuted,
-                    onChanged: jitsiServices.setAudioMuted,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Text("Set Video Muted"),
-                  Checkbox(
-                    value: videoMuted,
-                    onChanged: jitsiServices.setVideoMuted,
-                  ),
-                ],
-              ),
-              TextButton(
-                onPressed: () => jitsiServices.sendEndpointTextMessage(
-                  message: "Hey Endpoint",
-                  participants: ["LdM0k@example.com"],
-                ),
-                child: const Text("Send Hey Endpoint Message To All"),
-              ),
-              Row(
-                children: [
-                  const Text("Toggle Screen Share"),
-                  Checkbox(
-                    value: screenShareOn,
-                    onChanged: jitsiServices.toggleScreenShare,
-                  ),
-                ],
-              ),
-              TextButton(
-                onPressed: jitsiServices.openChat,
-                child: const Text("Open Chat"),
-              ),
-              TextButton(
-                onPressed: () => jitsiServices.sendChatMessage(
-                  message: "Hello",
-                  participants: ["LdM0k@example.com"],
-                ),
-                child: const Text("Send Chat Message to All"),
-              ),
-              TextButton(
-                onPressed: jitsiServices.closeChat,
-                child: const Text("Close Chat"),
-              ),
-              TextButton(
-                onPressed: jitsiServices.retrieveParticipantsInfo,
-                child: const Text("Retrieve Participants Info"),
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: const LoginScreen(),
+      routes: {
+        '/register': (context) => const RegisterScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const JitsiApp(),
+      },
     );
   }
 }
