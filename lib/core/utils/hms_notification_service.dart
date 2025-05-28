@@ -5,13 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_callkit_incoming/entities/notification_params.dart';
 import 'package:huawei_push/huawei_push.dart';
 import 'package:jitsi/core/utils/call_kit_config.dart';
-import 'package:rxdart/rxdart.dart';
 import 'notification_services.dart';
 
 class HMSNotificationServices extends NotificationServices {
   String _token = "";
-
-  static BehaviorSubject<String>? onNotificationClick;
 
   @override
   Future<void> initializeNotificationService() async {
@@ -29,7 +26,6 @@ class HMSNotificationServices extends NotificationServices {
         log("hms Error getting token: $error");
       },
     );
-    onNotificationClick = BehaviorSubject<String>();
 
     Push.onNotificationOpenedApp.listen(_onNotificationOpenedApp);
 
@@ -48,13 +44,6 @@ class HMSNotificationServices extends NotificationServices {
   void _onNotificationOpenedApp(dynamic remoteMessage) {
     print("onNotificationOpenedApp: $remoteMessage");
     if (remoteMessage != null) {
-      Map<String, dynamic> remoteNotification = {
-        "id": remoteMessage["extras"]['id'],
-        "title": remoteMessage["extras"]['title'],
-        "view": remoteMessage["extras"]['view'],
-        "sectionid": remoteMessage["extras"]['sectionid'],
-      };
-      onNotificationClick?.add(json.encode(remoteNotification));
       _gitsiCallHandler(remoteMessage);
     }
   }
@@ -70,7 +59,6 @@ class HMSNotificationServices extends NotificationServices {
       "sectionid": remoteMessage.dataOfMap?['sectionid'],
     };
     if (data != null) {
-      onNotificationClick?.add(json.encode(remoteNotification));
       _gitsiCallHandler(remoteMessage);
     }
   }
@@ -85,7 +73,6 @@ class HMSNotificationServices extends NotificationServices {
       "sectionid": remoteMessage.dataOfMap?['sectionid'],
     };
     if (data != null) {
-      onNotificationClick?.add(json.encode(remoteNotification));
       _gitsiCallHandler(remoteMessage);
     }
   }
@@ -95,9 +82,6 @@ class HMSNotificationServices extends NotificationServices {
     if (kDebugMode) {
       log("Huawei MyToken: $_token");
     }
-    // await SaveFirebaseNotificationTokenUseCase(injector())(
-    //   firebaseNotificationToken: _token,
-    // );
   }
 
   void _gitsiCallHandler(RemoteMessage event) {

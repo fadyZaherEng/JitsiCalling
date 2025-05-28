@@ -26,7 +26,7 @@ class SendNotificationService {
         'https://fcm.googleapis.com/v1/projects/$projectId/messages:send';
 
     const currentFCMToken =
-        "cCdkdzK6Te6yuBVjVvU5qK:APA91bHDILFQoXLCwdpnQyrAWdeVslcXhE26xDNKi2_OAdhO-0TANmzoSfhjMc4PGKLl-iFv9xDPJHL5Krue7_TIfyEiQyhdT5ZZxBCrGTeKGY58EexsHhw";
+        "dfM1vCj3S_yShAyA2ghFOi:APA91bFrX7VfBK29A5zNbS76myv967nASi2TGvovDDN9REmNAmDBslnYBYKkcorMUx-wDx2zRi7-BHrOoYa_DFjOB7v4_o07OzfATAbZ8AekbldF2YOwmbc";
     // await FirebaseMessaging.instance.getToken();
     final Map<String, dynamic> massage = {
       "message": {
