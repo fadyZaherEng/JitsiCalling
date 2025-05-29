@@ -90,10 +90,10 @@ class JitsiServices {
         // "car-mode.enabled": false,
         // "add-people.enabled": false,
         // "speakerstats.enabled": false,
+        FeatureFlags.unsafeRoomWarningEnabled: false, // ⛔ أوقف التحذير هنا
         FeatureFlags.addPeopleEnabled: true,
         FeatureFlags.welcomePageEnabled: true,
         FeatureFlags.preJoinPageEnabled: true,
-        FeatureFlags.unsafeRoomWarningEnabled: true,
         FeatureFlags.resolution: FeatureFlagVideoResolutions.resolution720p,
         FeatureFlags.audioFocusDisabled: true,
         FeatureFlags.audioMuteButtonEnabled: true,
@@ -167,7 +167,7 @@ class JitsiServices {
     }
   }
 
- void hangUp() async {
+  void hangUp() async {
     await jitsiMeet.hangUp();
     debugPrint("hangUp");
   }
@@ -184,7 +184,7 @@ class JitsiServices {
     return muted;
   }
 
- void sendEndpointTextMessage({
+  void sendEndpointTextMessage({
     required List<String> participants,
     required String message,
   }) async {
