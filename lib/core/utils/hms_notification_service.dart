@@ -110,6 +110,14 @@ class HMSNotificationServices extends NotificationServices {
         type: 0,
       );
       callKitConfig.showIncomingCall(roomId: event.dataOfMap!["room_id"]!);
+
+      ///add listener to user accept or reject call
+      callKitConfig.callKitEventListener(
+        displayName: event.dataOfMap!["receiver_name"]!,
+        email: event.dataOfMap!["receiver_email"]!,
+        avatarUrl: event.dataOfMap!["receiver_image"]!,
+        roomId: event.dataOfMap!["room_id"]!,
+      );
     } else {
       //TODO Handle Notification
     }

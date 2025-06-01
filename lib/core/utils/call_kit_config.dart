@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
+import 'package:jitsi/core/utils/jitsi_services.dart';
 
 class CallKitConfig {
   final String nameCaller;
@@ -71,5 +73,38 @@ class CallKitConfig {
     );
 
     await FlutterCallkitIncoming.showCallkitIncoming(callKitParams);
+  }
+
+  Future<void> callKitEventListener({
+    required String roomId,
+    required String displayName,
+    required String avatarUrl,
+    required String email,
+  }) async {
+    FlutterCallkitIncoming.onEvent.listen((CallEvent? event) async {
+      switch (event?.event) {
+        case Event.actionCallAccept:
+          JitsiServices jitsiServices = JitsiServices(
+            room: roomId,
+            displayName: displayName,
+            avatarUrl: avatarUrl,
+            email: email,
+          );
+          await jitsiServices.startMeeting();
+          break;
+        case Event.actionCallDecline:
+          debugPrint("actionCallDecline");
+          break;
+        case Event.actionCallTimeout:
+          debugPrint("actionCallTimeout");
+          break;
+        case Event.actionCallEnded:
+          debugPrint("actionCallEnd");
+          break;
+        default:
+          debugPrint("actionCallEnd");
+          break;
+      }
+    });
   }
 }

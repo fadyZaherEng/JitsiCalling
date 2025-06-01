@@ -11,8 +11,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
-  jitsi_meet_flutter_sdk: ^11.1.1
-  flutter_callkit_incoming: ^2.5.2
+  jitsi_meet_flutter_sdk:
+  flutter_callkit_incoming:
   firebase_core:
   huawei_hmsavailability:
   firebase_messaging:
