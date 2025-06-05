@@ -42,7 +42,7 @@ class JitsiServices {
       },
       endpointTextMessageReceived: (senderId, message) {
         debugPrint(
-            "endpointTextMessageReceived: senderId: $senderId, message: $message");
+            "endpointTextMessageReceived: senderId: $senderId, message: $message",);
       },
       screenShareToggled: (participantId, sharing) {
         debugPrint(
@@ -59,7 +59,8 @@ class JitsiServices {
       chatToggled: (isOpen) => debugPrint("chatToggled: isOpen: $isOpen"),
       participantsInfoRetrieved: (participantsInfo) {
         debugPrint(
-            "participantsInfoRetrieved: participantsInfo: $participantsInfo, ");
+          "participantsInfoRetrieved: participantsInfo: $participantsInfo, ",
+        );
       },
       readyToClose: () {
         closeMeeting();
