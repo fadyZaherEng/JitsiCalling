@@ -67,12 +67,13 @@ class FirebaseNotificationService implements NotificationServices {
   }
 
   void _gitsiCallHandler(RemoteMessage event) {
+    try{
     if (event.data.containsKey("room_id")) {
       CallKitConfig callKitConfig = CallKitConfig(
-        nameCaller: event.data["sender_name"],
+        nameCaller: event.data["sender_name"]??"",
         appName: "Jitsi",
-        avatar: event.data["sender_image"],
-        handle: event.data["sender_mobile"],
+        avatar: event.data["sender_image"]??"",
+        handle: event.data["sender_mobile"]??"",
         textAccept: "Accept",
         textDecline: "Decline",
         missedCallNotificationParams: const NotificationParams(
@@ -83,7 +84,7 @@ class FirebaseNotificationService implements NotificationServices {
         ),
         duration: 30000,
         extra: {
-          'room_id': event.data["room_id"],
+          'room_id': event.data["room_id"]??"",
         },
         headers: {
           'api_key': "YOUR_API_KEY",
@@ -101,6 +102,9 @@ class FirebaseNotificationService implements NotificationServices {
       );
     } else {
       //TODO Handle Notification
+    }
+    }catch(e){
+      debugPrint("FFFFFFFFFFFFFFFFFFFFFFFFFFF${e.toString()}");
     }
   }
 }

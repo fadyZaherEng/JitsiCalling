@@ -73,9 +73,9 @@ class JitsiServices {
       configOverrides: {
         "startWithAudioMuted": true,
         "startWithVideoMuted": true,
-        "disableDeepLinking": true,
-        "disableThirdPartyRequests": true,
-        "audioQuality": {"opusMaxAverageBitrate": 32000},
+        // "disableDeepLinking": true,
+        // "disableThirdPartyRequests": true,
+        // "audioQuality": {"opusMaxAverageBitrate": 32000},
         "subject": "Jitsi Meet Flutter SDK",
       },
       featureFlags: {
@@ -91,10 +91,10 @@ class JitsiServices {
         // "car-mode.enabled": false,
         // "add-people.enabled": false,
         // "speakerstats.enabled": false,
-        FeatureFlags.unsafeRoomWarningEnabled: false, // ⛔ أوقف التحذير هنا
         FeatureFlags.addPeopleEnabled: true,
         FeatureFlags.welcomePageEnabled: true,
         FeatureFlags.preJoinPageEnabled: true,
+        FeatureFlags.unsafeRoomWarningEnabled: true,
         FeatureFlags.resolution: FeatureFlagVideoResolutions.resolution720p,
         FeatureFlags.audioFocusDisabled: true,
         FeatureFlags.audioMuteButtonEnabled: true,
