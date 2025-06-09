@@ -205,6 +205,7 @@ class JitsiServices {
 
   void openChat() async {
     await jitsiMeet.openChat();
+
     debugPrint("openChat");
   }
 

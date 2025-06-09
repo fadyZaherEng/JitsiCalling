@@ -95,10 +95,10 @@ class FirebaseNotificationService implements NotificationServices {
       callKitConfig.showIncomingCall(roomId: event.data["room_id"]);
       ///add listener to user accept or reject call
       callKitConfig.callKitEventListener(
-        displayName: event.data["receiver_name"],
-        email: event.data["receiver_email"],
-        avatarUrl: event.data["receiver_image"],
-        roomId: event.data["room_id"],
+        displayName: event.data["receiver_name"]??"",
+        email: event.data["receiver_email"]??"",
+        avatarUrl: event.data["receiver_image"]??"",
+        roomId: event.data["room_id"]??"",
       );
     } else {
       //TODO Handle Notification

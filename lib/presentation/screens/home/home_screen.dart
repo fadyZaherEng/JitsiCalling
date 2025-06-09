@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_callkit_incoming/entities/call_event.dart';
+import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:jitsi/core/utils/jitsi_services.dart';
 import 'package:jitsi/core/utils/send_notification_service.dart';
+import 'package:jitsi/presentation/screens/calling/calling_screen.dart';
 
 class JitsiApp extends StatefulWidget {
   const JitsiApp({super.key});
@@ -46,9 +49,111 @@ class _JitsiAppState extends State<JitsiApp>
     _controller.forward();
     _listenToTokenChanges();
     _loadUserDataAndUpdateToken();
+    _initCurrentCall();
   }
 
-  void _listenToTokenChanges() {
+  @override
+  void didUpdateWidget(covariant JitsiApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    FlutterCallkitIncoming.onEvent.listen((CallEvent? event) async {
+      switch (event!.event) {
+        case Event.actionCallIncoming:
+          debugPrint("actionCallIncoming");
+          break;
+        case Event.actionCallStart:
+          debugPrint("actionCallStart");
+          break;
+        case Event.actionCallAccept:
+          // // TODO: accepted an incoming call
+          // // TODO: show screen calling in Flutter
+          //   JitsiServices jitsiServices = JitsiServices(
+          //     room: roomId,
+          //     displayName: displayName,
+          //     avatarUrl: avatarUrl,
+          //     email: email,
+          //   );
+          //   await jitsiServices.startMeeting();
+          debugPrint("actionCallAcceptNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CallingPage(),
+            ),
+          );
+          break;
+        case Event.actionCallDecline:
+          debugPrint("actionCallDecline");
+          break;
+        case Event.actionCallEnded:
+          debugPrint("actionCallEnded");
+          break;
+        case Event.actionCallTimeout:
+          debugPrint("actionCallTimeout");
+          break;
+        case Event.actionCallCallback:
+          // TODO: only Android - click action `Call back` from missed call notification
+          debugPrint("actionCallCallback");
+          break;
+        case Event.actionCallToggleHold:
+          // TODO: only iOS
+          debugPrint("actionCallToggleHold");
+          break;
+        case Event.actionCallToggleMute:
+          // TODO: only iOS
+          debugPrint("actionCallToggleMute");
+          break;
+        case Event.actionCallToggleDmtf:
+          // TODO: only iOS
+          debugPrint("actionCallToggleDmtf");
+          break;
+        case Event.actionCallToggleGroup:
+          // TODO: only iOS
+          debugPrint("actionCallToggleGroup");
+          break;
+        case Event.actionCallToggleAudioSession:
+          // TODO: only iOS
+          debugPrint("actionCallToggleAudioSession");
+          break;
+        case Event.actionDidUpdateDevicePushTokenVoip:
+          // TODO: only iOS
+          debugPrint("actionDidUpdateDevicePushTokenVoip");
+          break;
+        case Event.actionCallCustom:
+          // TODO: for custom action
+          debugPrint("actionCallCustom");
+          break;
+        default:
+          debugPrint("actionCallCustom");
+          break;
+      }
+    });
+  }
+
+  Future<void> _requestNotificationPermission() async {
+    await FlutterCallkitIncoming.requestNotificationPermission({
+      "rationaleMessagePermission":
+          "Notification permission is required, to show notification.",
+      "postNotificationMessageRequired":
+          "Notification permission is required, Please allow notification permission from setting."
+    });
+  }
+
+  Future<dynamic> _initCurrentCall() async {
+    await _requestNotificationPermission();
+    //check current call from pushkit if possible
+    var calls = await FlutterCallkitIncoming.activeCalls();
+    if (calls is List) {
+      if (calls.isNotEmpty) {
+        debugPrint('DATA: $calls');
+        return calls[0];
+      } else {
+        return null;
+      }
+    }
+  }
+
+  void _listenToTokenChanges() async {
+    await FlutterCallkitIncoming.requestFullIntentPermission();
     FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
       final user = _auth.currentUser;
       if (user != null) {

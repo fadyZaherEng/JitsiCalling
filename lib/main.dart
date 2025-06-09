@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:huawei_hmsavailability/huawei_hmsavailability.dart';
 import 'package:jitsi/core/utils/firebase_notification_services.dart';
 import 'package:jitsi/core/utils/hms_notification_service.dart';
+import 'package:jitsi/presentation/screens/calling/calling_screen.dart';
 import 'package:jitsi/presentation/screens/home/home_screen.dart';
 import 'package:jitsi/presentation/screens/login/login_screen.dart';
 import 'package:jitsi/presentation/screens/register/register_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const JitsiApp(),
+        '/calling': (context) => const CallingPage(),
       },
     );
   }
